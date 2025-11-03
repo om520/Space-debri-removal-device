@@ -1,0 +1,84 @@
+% Ion Thruster Orbit Propagation (Realistic GMAT-Aligned)
+clc; clear; close all;
+
+% --- Constants ---
+mu = 398600;               % Earth's gravitational parameter [km^3/s^2]
+g0 = 9.80665e-3;           % Gravity [km/s^2]
+Re = 6371;                 % Earth radius [km]
+
+% --- Spacecraft parameters ---
+m0 = 250;                  % Initial mass [kg]
+T = 0.3e-3;                % Thrust [kN] (0.3 N)
+Isp = 3000;                % Specific impulse [s]
+
+% --- Initial conditions ---
+r0 = Re + 400;             % Initial altitude 400 km
+v0 = sqrt(mu/r0);          % Circular orbit velocity [km/s]
+state0 = [r0; 0; 0; v0; m0]; % [x y vx vy m]
+
+% --- Time setup ---
+tspan = 0:10:24*3600;      % 24 hours, step 10 sec
+state = zeros(length(tspan),5);
+state(1,:) = state0';
+
+% --- Integrate using Euler method ---
+for i = 1:length(tspan)-1
+    dt = tspan(i+1) - tspan(i);
+    dstatedt = dynamics(tspan(i),state(i,:),mu,T,Isp,g0);
+    state(i+1,:) = state(i,:) + dstatedt'*dt;
+end
+
+% --- Extract results ---
+r = sqrt(state(:,1).^2 + state(:,2).^2);
+v = sqrt(state(:,3).^2 + state(:,4).^2);
+altitude = r - Re;
+mass = state(:,5);
+
+% --- Plots ---
+figure;
+subplot(3,1,1); plot(tspan/3600, altitude, 'b','LineWidth',1.5);
+xlabel('Time [hr]'); ylabel('Altitude [km]'); grid on;
+
+subplot(3,1,2); plot(tspan/3600, v, 'r','LineWidth',1.5);
+xlabel('Time [hr]'); ylabel('Velocity [km/s]'); grid on;
+
+subplot(3,1,3); plot(tspan/3600, mass, 'k','LineWidth',1.5);
+xlabel('Time [hr]'); ylabel('Mass [kg]'); grid on;
+
+sgtitle('Ion Thruster Low-Thrust Orbit Raising (GMAT-Aligned)');
+
+figure;
+plot(state(:,1), state(:,2), 'm','LineWidth',1.5);
+xlabel('X [km]'); ylabel('Y [km]');
+title('Orbital Spiral Trajectory');
+axis equal; grid on;
+
+% --- Dynamics Function ---
+function dstatedt = dynamics(~, state, mu, T, Isp, g0)
+    x = state(1); y = state(2);
+    vx = state(3); vy = state(4);
+    m = state(5);
+
+    r = sqrt(x^2 + y^2);
+    v = sqrt(vx^2 + vy^2);
+
+    % Unit vectors
+    rhat = [x; y] / r;
+    vhat = [vx; vy] / v;
+
+    % Accelerations
+    a_grav = -mu / r^2 * rhat;
+    a_thrust = (T/m) * vhat;
+
+    % Mass flow
+    mdot = -T / (Isp * g0);
+
+    % Derivatives
+    dxdt = vx;
+    dydt = vy;
+    dvxdt = a_grav(1) + a_thrust(1);
+    dvydt = a_grav(2) + a_thrust(2);
+    dmdt = mdot;
+
+    dstatedt = [dxdt; dydt; dvxdt; dvydt; dmdt];
+end
