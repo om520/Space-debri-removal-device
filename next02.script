@@ -1,0 +1,233 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2025-10-02 10:31:42
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft DefaultSC;
+DefaultSC.DateFormat = TAIModJulian;
+DefaultSC.Epoch = '21545';
+DefaultSC.CoordinateSystem = EarthMJ2000Eq;
+DefaultSC.DisplayStateType = Keplerian;
+DefaultSC.SMA = 7345.932548982981;
+DefaultSC.ECC = 0;
+DefaultSC.INC = 0;
+DefaultSC.RAAN = 0;
+DefaultSC.AOP = 0;
+DefaultSC.TA = 0;
+DefaultSC.DryMass = 300;
+DefaultSC.Cd = 2.2;
+DefaultSC.Cr = 1.8;
+DefaultSC.DragArea = 15;
+DefaultSC.SRPArea = 1;
+DefaultSC.SPADDragScaleFactor = 1;
+DefaultSC.SPADSRPScaleFactor = 1;
+DefaultSC.AtmosDensityScaleFactor = 1;
+DefaultSC.ExtendedMassPropertiesModel = 'None';
+DefaultSC.Tanks = {xenon_tank};
+DefaultSC.Thrusters = {nasa_next};
+DefaultSC.PowerSystem = SolarPowerSystem1;
+DefaultSC.NAIFId = -10000001;
+DefaultSC.NAIFIdReferenceFrame = -9000001;
+DefaultSC.OrbitColor = Red;
+DefaultSC.TargetColor = Teal;
+DefaultSC.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+DefaultSC.CdSigma = 1e+70;
+DefaultSC.CrSigma = 1e+70;
+DefaultSC.Id = 'SatId';
+DefaultSC.Attitude = CoordinateSystemFixed;
+DefaultSC.SPADSRPInterpolationMethod = Bilinear;
+DefaultSC.SPADSRPScaleFactorSigma = 1e+70;
+DefaultSC.SPADDragInterpolationMethod = Bilinear;
+DefaultSC.SPADDragScaleFactorSigma = 1e+70;
+DefaultSC.AtmosDensityScaleFactorSigma = 1e+70;
+DefaultSC.ModelFile = 'aura.3ds';
+DefaultSC.ModelOffsetX = 0;
+DefaultSC.ModelOffsetY = 0;
+DefaultSC.ModelOffsetZ = 0;
+DefaultSC.ModelRotationX = 0;
+DefaultSC.ModelRotationY = 0;
+DefaultSC.ModelRotationZ = 0;
+DefaultSC.ModelScale = 1;
+DefaultSC.AttitudeDisplayStateType = 'Quaternion';
+DefaultSC.AttitudeRateDisplayStateType = 'AngularVelocity';
+DefaultSC.AttitudeCoordinateSystem = EarthMJ2000Eq;
+DefaultSC.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Hardware Components
+%----------------------------------------
+
+Create ElectricTank xenon_tank;
+xenon_tank.DirectionX = 0;
+xenon_tank.DirectionY = 0;
+xenon_tank.DirectionZ = 1;
+xenon_tank.SecondDirectionX = 0;
+xenon_tank.SecondDirectionY = -1;
+xenon_tank.SecondDirectionZ = 0;
+xenon_tank.HWOriginInBCSX = 0;
+xenon_tank.HWOriginInBCSY = 0;
+xenon_tank.HWOriginInBCSZ = 0;
+xenon_tank.AllowNegativeFuelMass = false;
+xenon_tank.FuelMass = 20;
+xenon_tank.FuelCenterOfMassX = 0;
+xenon_tank.FuelCenterOfMassY = 0;
+xenon_tank.FuelCenterOfMassZ = 0;
+xenon_tank.FuelMomentOfInertiaXX = 99;
+xenon_tank.FuelMomentOfInertiaXY = 0;
+xenon_tank.FuelMomentOfInertiaXZ = 0;
+xenon_tank.FuelMomentOfInertiaYY = 99;
+xenon_tank.FuelMomentOfInertiaYZ = 0;
+xenon_tank.FuelMomentOfInertiaZZ = 99;
+
+Create ElectricThruster nasa_next;
+nasa_next.HWOriginInBCSX = 0;
+nasa_next.HWOriginInBCSY = 0;
+nasa_next.HWOriginInBCSZ = 0;
+nasa_next.CoordinateSystem = Local;
+nasa_next.Origin = Earth;
+nasa_next.Axes = VNB;
+nasa_next.ThrustDirection1 = -1;
+nasa_next.ThrustDirection2 = 0;
+nasa_next.ThrustDirection3 = 0;
+nasa_next.DutyCycle = 1;
+nasa_next.ThrustScaleFactor = 1;
+nasa_next.DecrementMass = true;
+nasa_next.Tank = {xenon_tank};
+nasa_next.MixRatio = [ 1 ];
+nasa_next.GravitationalAccel = 9.81;
+nasa_next.ThrustModel = ConstantThrustAndIsp;
+nasa_next.MaximumUsablePower = 7.266;
+nasa_next.MinimumUsablePower = 0.638;
+nasa_next.ThrustCoeff1 = -5.19082;
+nasa_next.ThrustCoeff2 = 2.96519;
+nasa_next.ThrustCoeff3 = -14.4789;
+nasa_next.ThrustCoeff4 = 54.05382;
+nasa_next.ThrustCoeff5 = -0.00100092;
+nasa_next.MassFlowCoeff1 = -0.004776;
+nasa_next.MassFlowCoeff2 = 0.05717;
+nasa_next.MassFlowCoeff3 = -0.09956;
+nasa_next.MassFlowCoeff4 = 0.03211;
+nasa_next.MassFlowCoeff5 = 2.13781;
+nasa_next.FixedEfficiency = 0.7;
+nasa_next.Isp = 4200;
+nasa_next.ConstantThrust = 0.237;
+
+Create SolarPowerSystem SolarPowerSystem1;
+SolarPowerSystem1.EpochFormat = 'UTCGregorian';
+SolarPowerSystem1.InitialEpoch = '01 Jan 2000 11:59:28.000';
+SolarPowerSystem1.InitialMaxPower = 6.9;
+SolarPowerSystem1.AnnualDecayRate = 5;
+SolarPowerSystem1.Margin = 5;
+SolarPowerSystem1.BusCoeff1 = 0.3;
+SolarPowerSystem1.BusCoeff2 = 0;
+SolarPowerSystem1.BusCoeff3 = 0;
+SolarPowerSystem1.ShadowModel = 'DualCone';
+SolarPowerSystem1.ShadowBodies = {'Earth'};
+SolarPowerSystem1.SolarCoeff1 = 1.32077;
+SolarPowerSystem1.SolarCoeff2 = -0.10848;
+SolarPowerSystem1.SolarCoeff3 = -0.11665;
+SolarPowerSystem1.SolarCoeff4 = 0.10843;
+SolarPowerSystem1.SolarCoeff5 = -0.01279;
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel DefaultProp_ForceModel;
+DefaultProp_ForceModel.CentralBody = Earth;
+DefaultProp_ForceModel.PrimaryBodies = {Earth};
+DefaultProp_ForceModel.Drag = None;
+DefaultProp_ForceModel.SRP = Off;
+DefaultProp_ForceModel.RelativisticCorrection = Off;
+DefaultProp_ForceModel.ErrorControl = RSSStep;
+DefaultProp_ForceModel.GravityField.Earth.Degree = 4;
+DefaultProp_ForceModel.GravityField.Earth.Order = 4;
+DefaultProp_ForceModel.GravityField.Earth.StmLimit = 100;
+DefaultProp_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+DefaultProp_ForceModel.GravityField.Earth.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator DefaultProp;
+DefaultProp.FM = DefaultProp_ForceModel;
+DefaultProp.Type = RungeKutta4;
+DefaultProp.InitialStepSize = 60;
+DefaultProp.Accuracy = 9.999999999999999e-12;
+DefaultProp.MinStep = 0.001;
+DefaultProp.MaxStep = 2700;
+DefaultProp.MaxStepAttempts = 50;
+DefaultProp.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create FiniteBurn next_burn;
+next_burn.Thrusters = {nasa_next};
+next_burn.ThrottleLogicAlgorithm = 'MaxNumberOfThrusters';
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView DefaultOrbitView;
+DefaultOrbitView.SolverIterations = Current;
+DefaultOrbitView.UpperLeft = [ 0.005420054200542005 0 ];
+DefaultOrbitView.Size = [ 0.5 0.449874686716792 ];
+DefaultOrbitView.RelativeZOrder = 174;
+DefaultOrbitView.Maximized = false;
+DefaultOrbitView.Add = {DefaultSC, Earth};
+DefaultOrbitView.CoordinateSystem = EarthMJ2000Eq;
+DefaultOrbitView.DrawObject = [ true true ];
+DefaultOrbitView.DataCollectFrequency = 1;
+DefaultOrbitView.UpdatePlotFrequency = 50;
+DefaultOrbitView.NumPointsToRedraw = 0;
+DefaultOrbitView.ShowPlot = true;
+DefaultOrbitView.MaxPlotPoints = 20000;
+DefaultOrbitView.ShowLabels = true;
+DefaultOrbitView.ViewPointReference = Earth;
+DefaultOrbitView.ViewPointVector = [ 30000 0 0 ];
+DefaultOrbitView.ViewDirection = Earth;
+DefaultOrbitView.ViewScaleFactor = 1;
+DefaultOrbitView.ViewUpCoordinateSystem = EarthMJ2000Eq;
+DefaultOrbitView.ViewUpAxis = Z;
+DefaultOrbitView.EclipticPlane = Off;
+DefaultOrbitView.XYPlane = On;
+DefaultOrbitView.WireFrame = Off;
+DefaultOrbitView.Axes = On;
+DefaultOrbitView.Grid = Off;
+DefaultOrbitView.SunLine = Off;
+DefaultOrbitView.UseInitialView = On;
+DefaultOrbitView.StarCount = 7000;
+DefaultOrbitView.EnableStars = On;
+DefaultOrbitView.EnableConstellations = On;
+
+Create GroundTrackPlot DefaultGroundTrackPlot;
+DefaultGroundTrackPlot.SolverIterations = Current;
+DefaultGroundTrackPlot.UpperLeft = [ 0.004065040650406504 0.4523809523809524 ];
+DefaultGroundTrackPlot.Size = [ 0.5 0.449874686716792 ];
+DefaultGroundTrackPlot.RelativeZOrder = 126;
+DefaultGroundTrackPlot.Maximized = false;
+DefaultGroundTrackPlot.Add = {DefaultSC};
+DefaultGroundTrackPlot.DataCollectFrequency = 1;
+DefaultGroundTrackPlot.UpdatePlotFrequency = 50;
+DefaultGroundTrackPlot.NumPointsToRedraw = 0;
+DefaultGroundTrackPlot.ShowPlot = true;
+DefaultGroundTrackPlot.MaxPlotPoints = 20000;
+DefaultGroundTrackPlot.CentralBody = Earth;
+DefaultGroundTrackPlot.TextureMap = 'ModifiedBlueMarble.jpg';
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+BeginFiniteBurn next_burn(DefaultSC);
+Propagate 'Propagate' DefaultProp(DefaultSC) {DefaultSC.Earth.Altitude = 100};
+EndFiniteBurn next_burn(DefaultSC);
