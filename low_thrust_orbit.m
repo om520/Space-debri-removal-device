@@ -82,3 +82,4 @@ function dstatedt = dynamics(~, state, mu, T, Isp, g0)
 
     dstatedt = [dxdt; dydt; dvxdt; dvydt; dmdt];
 end
+
