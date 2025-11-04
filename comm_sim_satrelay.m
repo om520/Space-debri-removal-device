@@ -411,3 +411,4 @@ end
 % - CFDP reliability requires ACKs and retransmits; here we emulate per-fragment retransmit
 %   with a cap on attempts. For full CFDP, include metadata ACKing, block checks, and state.
 % - Tune Pt, antenna gains, bandwidth, and codingEfficiency to match realistic hardware.
+
