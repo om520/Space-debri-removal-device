@@ -26,6 +26,10 @@ This repository includes MATLAB and GMAT simulation scripts developed for valida
   Implements and validates radar-only relative navigation.
   
   - **Use Case:** Operates in GPS-denied, vision-sensor-limited regimes. Core layer for close-proximity ops, rendezvous/docking, servicing/formation maintenance.
+
+## Video Demonstration
+
+[![Space Debris Removal Device - Video](https://img.youtube.com/vi/LjgtK_CmWN0/0.jpg)](https://youtu.be/LjgtK_CmWN0)
   - **Output:**  
     - Position RMS error: **7.346 m**
     - Velocity RMS error: **0.0102 m/s**
