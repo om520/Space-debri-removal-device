@@ -39,8 +39,8 @@ graph TD
             Ion[("🚀 Main Ion Thruster<br/>(Back / Retrograde Thrust)")]
             RCS[("💨 Side Thrusters<br/>(Maneuvering / Avoidance)")]
             
+            %% Xenon only feeds the main thruster now
             Tank --> Ion
-            Tank --> RCS
         end
 
         %% --- Subsystem: Capture Payload ---
