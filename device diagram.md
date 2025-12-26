@@ -1,20 +1,9 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{tikz}
-\usepackage{graphicx}
-
-% --- REQUIRED LIBRARIES ---
-\usetikzlibrary{positioning, fit, backgrounds, shapes, arrows.meta, decorations.pathmorphing}
-
-\begin{document}
-
+```
 \begin{figure}[htbp]
 \centering
-\resizebox{\textwidth}{!}{%
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
-    node distance=1.2cm and 1.8cm,
+    node distance=1.4cm and 1.8cm,
     font=\sffamily\footnotesize,
     >={Latex[length=1.6mm]},
     % ---------- Base styles ----------
@@ -41,44 +30,39 @@
 ]
 
 % ================= EXTERNAL (TOP) =================
-\node[ext] (ground) {Ground Station\\ \textbf{TT\&C / Avoidance}};
+\node[ext] (ground) {Ground Station\\\textbf{TT\&C / Avoidance}};
 
 % ================= AVIONICS =================
 \node[avionics, below=1.8cm of ground] (ttc)
-    {TT\&C Transceiver\\ \textbf{Communications}};
+    {TT\&C Transceiver\\\textbf{Communications}};
 \node[avionics, right=of ttc] (sensors)
-    {Perception Suite\\ \textbf{LiDAR / Camera / Radar}};
+    {Perception Suite\\\textbf{LiDAR / Camera / Radar}};
 \node[avionics, below=of ttc] (obc)
-    {Onboard Computer\\ \textbf{GNC \& Trajectory}};
+    {Onboard Computer\\\textbf{GNC \& Trajectory}};
 \node[avionics, right=of obc] (ai)
-    {Edge AI Module\\ \textbf{CNN / DNN}};
+    {Edge AI Module\\\textbf{CNN / DNN}};
 
 % ================= EPS =================
 \node[eps, xshift=-6.5cm, below=1.8cm of obc] (ppu)
-    {Power Processing Unit\\ \textbf{HV Regulation}};
+    {Power Processing Unit\\\textbf{HV Regulation}};
 \node[eps, above=of ppu] (solar)
-    {Solar Array\\ \textbf{7.3 kW}};
+    {Solar Array\\\textbf{7.3 kW}};
 \node[eps, below=of ppu] (batt)
-    {Li-ion Battery\\ \textbf{Eclipse Region Power}};
+    {Li-ion Battery\\\textbf{Eclipse Ops}};
 
 % ================= PROPULSION =================
-% Xenon / Main Thruster
 \node[prop, xshift=6.5cm, below=1.8cm of ai] (ion)
-    {Main Ion Thruster\\ \textbf{Retrograde Burn}};
+    {Main Ion Thruster\\\textbf{Retrograde Burn}};
 \node[prop, above=of ion] (tank)
-    {Xenon Propellant Tank\\ \textbf{20 kg}};
-
-% RCS / New Tank
-\node[prop, below=of ion] (rcs_tank)
-    {RCS Fuel Tank\\ \textbf{3 kg}};
-\node[prop, below=0.8cm of rcs_tank] (rcs)
-    {RCS Thrusters\\ \textbf{Maneuvering Control}};
+    {Xenon Propellant Tank\\\textbf{20 kg}};
+\node[prop, below=of ion] (rcs)
+    {RCS Thrusters\\\textbf{Attitude Control}};
 
 % ================= PAYLOAD =================
 \node[payload, below=4.2cm of obc] (act)
-    {Capture Actuation Unit\\ \textbf{Net \& Motors}};
+    {Capture Actuation Unit\\\textbf{Net \& Motors}};
 \node[payload, below=of act] (claw)
-    {Mechanical Claw\\ \textbf{Clamp / Release}};
+    {Mechanical Claw\\\textbf{Clamp / Release}};
 
 % ================= EXTERNAL (BOTTOM) =================
 \node[ext, below=1.6cm of claw] (debris)
@@ -101,7 +85,7 @@
     ] (grp_eps) {};
 
     \node[
-        fit=(tank)(ion)(rcs_tank)(rcs),
+        fit=(tank)(ion)(rcs),
         draw=red!60, dashed, rounded corners,
         fill=orange!5, inner sep=8pt,
         label={[red!80]north east:\textbf{Propulsion}}
@@ -129,8 +113,7 @@
 \draw[data] (ai) -- (obc);
 \draw[data,<->] (obc) -- (ttc);
 \draw[data] (obc.south) -- ++(0,-1.8) -- (act.north);
-% Route data to propulsion group
-\draw[data] (obc.east) -| ++(0.5,-1) -- ++(2.5,0) |- (ion.west);
+\draw[data] (obc.west) -- ++(-1.3,0) |- (ion.north west);
 
 % Power
 \draw[power] (solar) -- (ppu);
@@ -138,9 +121,8 @@
 \draw[power] (ppu.east) -- ++(1.4,0) |- (ion.west);
 \draw[power] (ppu.east) -- ++(1.4,0) |- (rcs.west);
 
-% Physical (Propellant & Capture)
+% Physical
 \draw[power] (tank) -- (ion);
-\draw[power] (rcs_tank) -- (rcs);
 \draw[phys] (act) -- (claw);
 \draw[phys, thick] (claw) -- node[right,font=\scriptsize]{Capture} (debris);
 
@@ -159,17 +141,16 @@
     font=\scriptsize,
     align=left
 ] at (legend.north east)
-{Power / Fuel \\ Data / Command};
+{Power / HV\\Data / Command};
 
 \draw[power]
     ([xshift=0.3cm,yshift=-0.4cm]legend.north west) -- ++(0.7,0);
 \draw[data]
     ([xshift=0.3cm,yshift=-0.8cm]legend.north west) -- ++(0.7,0);
 
-\end{tikzpicture}%
-}
+\end{tikzpicture}}
 \caption{System Architecture of the Space Debris Removal Module.}
 \label{fig:architecture}
 \end{figure}
 
-\end{document}
+```
