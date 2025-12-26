@@ -65,10 +65,10 @@ graph TD
     end
 
     %% --- External Links ---
-    Ground <.-.->|CCSDS Link| Transceiver
+    Ground <-->|CCSDS Link| Transceiver
     Claw -.->|Physical Capture| Debris
     
-    %% Styling for GitHub Dark/Light Mode Compatibility
+    %% Styling
     classDef power fill:#ffdd00,stroke:#333,stroke-width:2px,color:black;
     classDef prop fill:#ff9900,stroke:#333,stroke-width:2px,color:black;
     classDef avionics fill:#00ccff,stroke:#333,stroke-width:2px,color:black;
