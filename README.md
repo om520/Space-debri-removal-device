@@ -52,6 +52,10 @@ This repository includes MATLAB and GMAT simulation scripts developed for valida
   
   GMAT scenario for spacecraft deorbiting: simulates retrograde thrust maneuvers from 800 km to 100 km altitude using a xenon thruster.
 
+#### GMAT Simulation Demonstration
+
+[![GMAT Spacecraft Deorbiting Simulation](https://img.youtube.com/vi/WTU4w6iIQqc/0.jpg)](https://youtu.be/WTU4w6iIQqc)
+
 ---
 
 ## Getting Started
