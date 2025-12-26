@@ -10,7 +10,7 @@ graph TD
         %% --- Subsystem: Power (EPS) ---
         subgraph EPS [Power Subsystem]
             Solar[("☀️ Solar Panels<br/>(7.3 kW)")]
-            PPU[Power Processing Unit<br/>(High Voltage Regulation)]
+            PPU["Power Processing Unit<br/>(High Voltage Regulation)"]
             Batt[("🔋 Li-ion Battery<br/>(33 kg / Eclipse Ops)")]
             
             Solar --> PPU
@@ -19,11 +19,11 @@ graph TD
 
         %% --- Subsystem: Avionics & GNC ---
         subgraph Avionics [Avionics & GNC]
-            OBC[Onboard Computer<br/>(Trajectory & Control)]
-            AI_Edge[Edge Inference Engine<br/>(CNN/DNN)]
+            OBC["Onboard Computer<br/>(Trajectory & Control)"]
+            AI_Edge["Edge Inference Engine<br/>(CNN/DNN)"]
             
             %% Sensors
-            Sensors_Perc[Perception Sensors<br/>(Camera / Radar / LiDAR)]
+            Sensors_Perc["Perception Sensors<br/>(Camera / Radar / LiDAR)"]
             
             %% Comms
             Transceiver[TT&C Transceiver]
